@@ -111,11 +111,6 @@ Cada vez que un vehículo sale, se guarda su placa y el monto cobrado. Se puede 
 
 ---
 
-## Cómo compilar y ejecutar
-
-```bash
-g++ main.cpp -o parqueadero
-./parqueadero
 ## Referencias
 
 - cppreference.com — `std::time`, `std::difftime`, `<ctime>`: https://en.cppreference.com/w/cpp/chrono/c/time
@@ -125,4 +120,9 @@ g++ main.cpp -o parqueadero
 - learncpp.com — Structs en C++: https://www.learncpp.com/cpp-tutorial/introduction-to-structs-members-and-member-selection
 - ANSI escape codes — colores en consola: https://en.wikipedia.org/wiki/ANSI_escape_code
 - Brooks, F. P. (1995). *The Mythical Man-Month*. Addison-Wesley.
+## Cómo compilar y ejecutar
+
+```bash
+g++ main.cpp -o parqueadero
+./parqueadero
 
