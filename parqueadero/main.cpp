@@ -24,3 +24,30 @@ struct Espacio {
  int tipo; // 1 carro, 2 moto, 3 bici
  std::time_t entrada;
 };
+struct Historial {
+ std::string placa;
+ int pago;
+};
+// ===== VARIABLES GLOBALES =====
+Espacio parqueadero[NIVELES][FILAS][COLS];
+bool vias[FILAS][COLS];
+Historial historial[MAX_HISTORIAL];
+int contadorHistorial = 0;
+// ===== UTILIDADES =====
+std::string obtenerEmoji(int tipo) {
+ if (tipo == 1) return " ";
+ if (tipo == 2) return " ";
+ return " ";
+}
+std::string obtenerColor(int tipo) {
+ if (tipo == 1) return ROJO;
+ if (tipo == 2) return AMARILLO;
+ return CYAN;
+}
+void limpiarPantalla() {
+#ifdef _WIN32
+ std::system("cls");
+#else
+ std::system("clear");
+#endif
+}
