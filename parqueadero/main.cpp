@@ -178,3 +178,58 @@ bool buscarEspacio(int tipo, int *nivel, int *x, int *y) {
  }
  return mejorDist != 9999;
 }
+// ===== INGRESAR =====
+void ingresarVehiculo() {
+ int tipo, nivel = 0, x = 0, y = 0;
+ std::string placa;
+ std::cout << "Tipo (1=Carro, 2=Moto, 3=Bici): ";
+ std::cin >> tipo;
+ if (tipo < 1 || tipo > 3) {
+ std::cout << ROJO << "Tipo invalido.\n" << RESET;
+ return;
+ }
+ std::cout << "Placa: ";
+ std::cin >> placa;
+ if (!buscarEspacio(tipo, &nivel, &x, &y)) {
+ std::cout << ROJO << "No hay espacios disponibles.\n" << RESET;
+ return;
+ }
+ animacionEntrada(tipo);
+ moverVehiculo(nivel, x, y, tipo);
+ parqueadero[nivel][x][y].ocupado = true;
+ parqueadero[nivel][x][y].placa = placa;
+ parqueadero[nivel][x][y].tipo = tipo;
+ parqueadero[nivel][x][y].entrada = std::time(0);
+ std::cout << VERDE << "\nUbicado en Nivel " << nivel
+ << " Posicion [" << x << "," << y << "]\n" << RESET;
+}
+// ===== RETIRAR =====
+void retirarVehiculo() {
+ std::string placa;
+ std::cout << "Ingrese placa: ";
+ std::cin >> placa;
+ for (int n = 0; n < NIVELES; n++) {
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ if (!parqueadero[n][i][j].ocupado) continue;
+ if (parqueadero[n][i][j].placa != placa) continue;
+ int tipo = parqueadero[n][i][j].tipo;
+ animacionSalida(tipo);
+ moverVehiculo(n, 0, 0, tipo);
+ int pago = calcularPago(parqueadero[n][i][j].entrada, tipo);
+ mostrarPago(pago);
+ // Guardar en historial si hay espacio
+ if (contadorHistorial < MAX_HISTORIAL) {
+ historial[contadorHistorial].placa = placa;
+ historial[contadorHistorial].pago = pago;
+ contadorHistorial++;
+ }
+ parqueadero[n][i][j].ocupado = false;
+ parqueadero[n][i][j].placa = "";
+ parqueadero[n][i][j].tipo = 0;
+ return;
+ }
+ }
+ }
+ std::cout << ROJO << "Vehiculo no encontrado.\n" << RESET;
+}
