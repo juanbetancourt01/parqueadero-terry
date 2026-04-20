@@ -51,3 +51,52 @@ void limpiarPantalla() {
  std::system("clear");
 #endif
 }
+// ===== INICIALIZAR =====
+void inicializar() {
+ for (int n = 0; n < NIVELES; n++) {
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ parqueadero[n][i][j].ocupado = false;
+ parqueadero[n][i][j].placa = "";
+ parqueadero[n][i][j].tipo = 0;
+ }
+ }
+ }
+ // Vías cada 4 filas/columnas — forman una cuadrícula de calles
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ vias[i][j] = (i % 4 == 0 || j % 4 == 0);
+ }
+ }
+}
+// ===== MAPA =====
+void mostrarMapa(int nivel, int rx = -1, int ry = -1, int tipoAnim = 1) {
+ limpiarPantalla();
+ std::cout << AZUL << "\n====== NIVEL " << nivel << " ======\n\n" << RESET;
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ // Vehículo en movimiento
+ if (i == rx && j == ry) {
+ std::cout << obtenerColor(tipoAnim)
+ << obtenerEmoji(tipoAnim) << " "
+ << RESET;
+ continue;
+ }
+ if (parqueadero[nivel][i][j].ocupado) {
+ std::cout << obtenerColor(parqueadero[nivel][i][j].tipo)
+ << obtenerEmoji(parqueadero[nivel][i][j].tipo)
+ << " " << RESET;
+ } else if (vias[i][j]) {
+ if (i == 0 && j == 0)
+ std::cout << VERDE << "E " << RESET;
+ else if (i == FILAS - 1 && j == COLS - 1)
+ std::cout << ROJO << "S " << RESET;
+ else
+ std::cout << "- ";
+ } else {
+ std::cout << ". ";
+ }
+ }
+ std::cout << "\n";
+ }
+}
