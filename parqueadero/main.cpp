@@ -113,3 +113,44 @@ void moverVehiculo(int nivel, int destinoX, int destinoY, int tipo) {
  }
  mostrarMapa(nivel, destinoX, destinoY, tipo);
 }
+// ===== ANIMACIONES =====
+void animacionEntrada(int tipo) {
+ std::string emoji = obtenerEmoji(tipo);
+ std::string color = obtenerColor(tipo);
+ std::cout << "\nIngresando vehiculo...\n";
+ for (int i = 0; i < 20; i++) {
+ std::cout << "\r" << color << emoji << " ";
+ for (int j = 0; j < i; j++) std::cout << " ";
+ std::cout << "→" << RESET << std::flush;
+ std::this_thread::sleep_for(std::chrono::milliseconds(60));
+ }
+ std::cout << "\n" << VERDE << "Vehiculo parqueado correctamente\n" << RESET;
+}
+void animacionSalida(int tipo) {
+ std::string emoji = obtenerEmoji(tipo);
+ std::string color = obtenerColor(tipo);
+ std::cout << "\nSaliendo vehiculo...\n";
+ for (int i = 20; i > 0; i--) {
+ std::cout << "\r" << color << emoji << " ";
+ for (int j = 0; j < i; j++) std::cout << " ";
+ std::cout << "←" << RESET << std::flush;
+ std::this_thread::sleep_for(std::chrono::milliseconds(60));
+ }
+ std::cout << "\n" << VERDE << "Vehiculo fuera del parqueadero\n" << RESET;
+}
+// ===== COBRO =====
+void mostrarPago(int pago) {
+ std::cout << MAGENTA;
+ std::cout << "\n=============================\n";
+ std::cout << " TOTAL A PAGAR: $" << pago << "\n";
+ std::cout << "=============================\n";
+ std::cout << RESET;
+}
+int calcularPago(std::time_t entrada, int tipo) {
+ double minutos = std::difftime(std::time(0), entrada) / 60.0;
+ int tarifa;
+ if (tipo == 1) tarifa = 150;
+ else if (tipo == 2) tarifa = 100;
+ else tarifa = 50;
+ return static_cast<int>(minutos * tarifa);
+}
