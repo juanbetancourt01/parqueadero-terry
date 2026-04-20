@@ -273,3 +273,36 @@ void verHistorial() {
  }
  std::cout << "==============================\n";
 }
+// ===== MAIN =====
+int main() {
+ int opcion, nivel;
+ inicializar();
+ do {
+ std::cout << "\n====== PARQUEADERO TERRY ======\n";
+ std::cout << "1. Ver mapa\n";
+ std::cout << "2. Ingresar vehiculo\n";
+ std::cout << "3. Retirar vehiculo\n";
+ std::cout << "4. Disponibilidad\n";
+ std::cout << "5. Historial\n";
+ std::cout << "6. Salir\n";
+ std::cout << "Opcion: ";
+ std::cin >> opcion;
+ switch (opcion) {
+ case 1:
+ std::cout << "Nivel (0 o 1): ";
+ std::cin >> nivel;
+ if (nivel >= 0 && nivel < NIVELES)
+ mostrarMapa(nivel);
+ else
+ std::cout << ROJO << "Nivel invalido.\n" << RESET;
+ break;
+ case 2: ingresarVehiculo(); break;
+ case 3: retirarVehiculo(); break;
+ case 4: mostrarDisponibilidad(); break;
+ case 5: verHistorial(); break;
+ case 6: std::cout << "Hasta luego.\n"; break;
+ default: std::cout << "Opcion invalida.\n";
+ }
+ } while (opcion != 6);
+ return 0;
+}
