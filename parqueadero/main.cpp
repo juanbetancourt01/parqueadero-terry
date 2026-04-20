@@ -154,3 +154,27 @@ int calcularPago(std::time_t entrada, int tipo) {
  else tarifa = 50;
  return static_cast<int>(minutos * tarifa);
 }
+// ===== BUSCAR ESPACIO =====
+// Devuelve true si encontró un espacio libre, false si el parqueadero está lleno.
+// Usa punteros para devolver el nivel y posición encontrados.
+bool buscarEspacio(int tipo, int *nivel, int *x, int *y) {
+ int mejorDist = 9999;
+ for (int n = 0; n < NIVELES; n++) {
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ if (parqueadero[n][i][j].ocupado) continue;
+ if (vias[i][j]) continue;
+ // Bicicletas solo en nivel 0
+ if (tipo == 3 && n != 0) continue;
+ int dist = i + j; // distancia aproximada desde la entrada
+ if (dist < mejorDist) {
+ mejorDist = dist;
+ *nivel = n;
+ *x = i;
+ *y = j;
+ }
+ }
+ }
+ }
+ return mejorDist != 9999;
+}
