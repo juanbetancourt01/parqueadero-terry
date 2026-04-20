@@ -233,3 +233,43 @@ void retirarVehiculo() {
  }
  std::cout << ROJO << "Vehiculo no encontrado.\n" << RESET;
 }
+// ===== DISPONIBILIDAD =====
+void mostrarDisponibilidad() {
+ int carros = 0, motos = 0, bicis = 0;
+ int totalEspacios = 0;
+ for (int n = 0; n < NIVELES; n++) {
+ for (int i = 0; i < FILAS; i++) {
+ for (int j = 0; j < COLS; j++) {
+ if (!vias[i][j]) totalEspacios++;
+ if (parqueadero[n][i][j].ocupado) {
+ if (parqueadero[n][i][j].tipo == 1) carros++;
+ else if (parqueadero[n][i][j].tipo == 2) motos++;
+ else bicis++;
+ }
+ }
+ }
+ }
+ int ocupados = carros + motos + bicis;
+ int libres = totalEspacios - ocupados;
+ std::cout << "\n===== DISPONIBILIDAD =====\n";
+ std::cout << " Carros: " << carros << "\n";
+ std::cout << " Motos: " << motos << "\n";
+ std::cout << " Bicicletas: " << bicis << "\n";
+ std::cout << "--------------------------\n";
+ std::cout << "Ocupados: " << ocupados << "\n";
+ std::cout << "Libres: " << libres << "\n";
+ std::cout << "==========================\n";
+}
+// ===== HISTORIAL =====
+void verHistorial() {
+ if (contadorHistorial == 0) {
+ std::cout << "Sin registros aun.\n";
+ return;
+ }
+ std::cout << "\n===== HISTORIAL DE PAGOS =====\n";
+ for (int i = 0; i < contadorHistorial; i++) {
+ std::cout << historial[i].placa
+ << " -> $" << historial[i].pago << "\n";
+ }
+ std::cout << "==============================\n";
+}
