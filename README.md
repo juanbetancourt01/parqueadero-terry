@@ -7,7 +7,7 @@
 ## Proyectos
 
 ### Parqueadero
-Sistema de gestión de parqueadero en C++ con mapa visual 16x16,
+Sistema de gestión de parqueadero en C++ con mapa visual 16x16, entradas y salidas de vehiculos, disponibilidad de espacios,
 animaciones de movimiento, dos niveles, y sistema de cobro por tiempo.
 
 *Innovaciones implementadas:*
