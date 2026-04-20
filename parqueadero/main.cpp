@@ -100,3 +100,16 @@ void mostrarMapa(int nivel, int rx = -1, int ry = -1, int tipoAnim = 1) {
  std::cout << "\n";
  }
 }
+// ===== MOVIMIENTO =====
+void moverVehiculo(int nivel, int destinoX, int destinoY, int tipo) {
+ int x = 0, y = 0;
+ while (x != destinoX || y != destinoY) {
+ mostrarMapa(nivel, x, y, tipo);
+ std::this_thread::sleep_for(std::chrono::milliseconds(120));
+ if (x < destinoX) x++;
+ else if (x > destinoX) x--;
+ if (y < destinoY) y++;
+ else if (y > destinoY) y--;
+ }
+ mostrarMapa(nivel, destinoX, destinoY, tipo);
+}
